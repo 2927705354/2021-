@@ -1,46 +1,19 @@
 <template>
 <div>
-    <div id="main" style="width: 600px;height:400px;"></div>
 </div>
 </template>
 
 <script>
 export default {
   // 组件名称
-  name: 'demo',
-  // 组件参数 接收来自父组件的数据
-  props: {},
+  name: 'Demo',
   // 局部注册的组件
   components: {},
+  // 组件参数 接收来自父组件的数据
+  props: {},
   // 组件状态值
   data () {
-   return {}
-  },
-  mounted () {
-    var myChart = this.$echarts.init(document.getElementById('main'));
-
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+    return {}
   },
   /**
   * 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
@@ -50,8 +23,8 @@ export default {
   computed: {},
   // 侦听器
   watch: {},
-  // 组件方法
-  methods: {},
+  mounted () {
+  },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
   * 在实例初始化之后，组件属性计算之前，如data属性等
@@ -100,9 +73,11 @@ export default {
   * 所有的事件监听器会被移除，所有的子实例也会被销毁。
   */
   destroyed () {
-  }
+  },
+  // 组件方法
+  methods: {}
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

@@ -1,3 +1,3 @@
 module.exports={
-  baseUrl:'http://120.53.31.103:84/api/app/' //开发环境用到的baseurl
+  baseUrl:'https://www.liulongbin.top:8888/api/private/v1/' //开发环境用到的baseurl
 }
