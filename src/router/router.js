@@ -8,6 +8,11 @@ export default([
     path:'/test/test',
     name:'test',
     component:() => import('@/views/test/test')
+  },
+  {
+    path:'/hh/login',
+    name:'login',
+    component:() => import('@/views/hh/login')
   }
 
 ])

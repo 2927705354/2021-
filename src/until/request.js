@@ -4,7 +4,8 @@ import {Loading} from 'element-ui'
 const config = require('../config/env.' + process.env.NODE_ENV)
 console.log(config.baseUrl)
 const Server=axios.create({
-  baseURL:config.baseUrl,
+  baseURL:'',
+  // baseURL:config.baseUrl,
   timeout:5000
 })
 
