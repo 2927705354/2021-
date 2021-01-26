@@ -82,26 +82,26 @@ module.exports = {
   // // PWA 插件相关配置
   // // pwa: {},
   // // webpack-dev-server 相关配置
-  //   devServer: {
+  devServer: {
   //     // open: true,
   //     // host: 'localhost',
   //     // port: 8080,
   //     // https: false,
   //     // hotOnly: false,
   //     // // http 代理配置
-  // proxy: {
-  //     // 以api开头的域名解决跨域的问题
-  //     '/api': {
-  //         target: "http://ceshi5.dishait.cn/admin/",
-  //         changeOrigin: true,
-  //         ws:false,
-  //         pathRewrite: {
-  //             '^/api': ''
-  //         }
-  //     }
-  // },
+    proxy: {
+      // 以api开头的域名解决跨域的问题
+      '/api': {
+        target: "http://admintest.happymmall.com/",
+        changeOrigin: true,
+        ws:false,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
   // //     before: (app) => {}
-  //   },
+  },
   // // 第三方插件配置
   // pluginOptions: {
 

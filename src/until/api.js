@@ -1,18 +1,29 @@
 import request from '@/until/request'
 let qs=require('qs')
 
-export function getUserInfo(params) {
+// export function getUserInfo(params) {
+//   return request({
+//     url: '/user/userinfo',
+//     method: 'post',
+//     data: qs.stringify(params),
+//   })
+// }
+
+// 登录接口
+export function login(params) {
   return request({
-    url: '/user/userinfo',
+    url: 'api/manage/user/login.do',
     method: 'post',
     data: qs.stringify(params),
+
   })
 }
 
-export function login(params) {
+// 退出登录
+export function logout() {
   return request({
-    url: '/login',
+    url: 'api/user/logout.do',
     method: 'post',
-    data: qs.parse(params),
+
   })
 }
