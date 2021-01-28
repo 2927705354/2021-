@@ -35,6 +35,16 @@ export default([
         name:'list',
         component:() => import('@/views/hh/list')
       },
+      {
+        path:'/hh/addgoods',
+        name:'addgoods',
+        component:() => import('@/views/hh/addgoods')
+      },
+      {
+        path:'/hh/detail/:id',
+        name:'detail',
+        component:() => import('@/views/hh/detail')
+      },
     ]
   },
 

@@ -1,4 +1,4 @@
-// const path = require('path')
+const path = require('path')
 
 // 是否为生产环境
 const isProduction = process.env.NODE_ENV !== 'development';
@@ -53,9 +53,9 @@ module.exports = {
   // integrity: false,
   // // webpack相关配置
   // chainWebpack: (config) => {
-  //     config.resolve.alias
-  //         .set('vue$', 'vue/dist/vue.esm.js')
-  //         .set('@', path.resolve(__dirname, './src'))
+  //   config.resolve.alias
+  //     .set('vue$', 'vue/dist/vue.esm.js')
+  //     .set('@', path.resolve(__dirname, './src'))
   // },
   // configureWebpack: (config) => {
   //     if (process.env.NODE_ENV === 'production') {
@@ -109,6 +109,9 @@ module.exports = {
 
 
   chainWebpack: config => {
+    config.resolve.alias
+      .set('vue$', 'vue/dist/vue.esm.js')
+      .set('@', path.resolve(__dirname, './src'))
     // ============注入cdn start============
     config.plugin('html').tap(args => {
       // 生产环境或本地需要cdn时，才注入cdn
