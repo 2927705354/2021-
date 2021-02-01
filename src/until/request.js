@@ -1,8 +1,8 @@
 import axios from 'axios'
 // import {Loading} from 'element-ui'
 // 根据环境引入不同配置 process.env.NODE_ENV
-const config = require('../config/env.' + process.env.NODE_ENV)
-console.log(config.baseUrl)
+// const config = require('../config/env.' + process.env.NODE_ENV)
+// console.log(config.baseUrl)
 const Server=axios.create({
   baseURL:'',
   // baseURL:config.baseUrl,

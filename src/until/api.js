@@ -54,3 +54,28 @@ export function setsale(id, status) {
 
   })
 }
+
+// 查看商品详情
+export function detail(id) {
+  return request({
+    url: `api/manage/product/detail.do?productId=${id}`,
+    method: 'get',
+
+  })
+}
+// 获取列表数据
+export function getlist(id) {
+  return request({
+    url: `api/manage/category/get_category.do?categoryId=0`,
+    method: 'get',
+
+  })
+}
+// 获取列表数据二
+export function getlist2(id) {
+  return request({
+    url: `api/manage/category/get_category.do?categoryId=${id}`,
+    method: 'get',
+
+  })
+}
