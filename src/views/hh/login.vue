@@ -4,43 +4,35 @@
       <div class="hz">
         <h3>请登录</h3>
         <div class="form">
-
-
-        <el-form
-          ref="ruleForm"
-          :model="form"
-          status-icon
-          :rules="rules"
-          class="demo-ruleForm"
-        >
-          <el-form-item label prop="username">
-            <el-input
-              v-model="form.username"
-              type="text"
-              autocomplete="off"
-              placeholder="User Name"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label prop="password">
-            <el-input
-              v-model="form.password"
-              type="password"
-              autocomplete="off"
-              placeholder="Password"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" style="width:100%" @click="submit('ruleForm')">Login</el-button>
-          </el-form-item>
-        </el-form>
-          </div>
+          <el-form ref="ruleForm" :model="form" status-icon :rules="rules" class="demo-ruleForm">
+            <el-form-item label prop="username">
+              <el-input
+                v-model="form.username"
+                type="text"
+                autocomplete="off"
+                placeholder="User Name"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label prop="password">
+              <el-input
+                v-model="form.password"
+                type="password"
+                autocomplete="off"
+                placeholder="Password"
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" style="width:100%" @click="submit('ruleForm')">Login</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {login} from '@/until/api.js'
+import { login } from "@/until/api.js";
 export default {
   // 组件名称
   name: "Demo",
@@ -117,15 +109,15 @@ export default {
   // 组件方法
   methods: {
     submit() {
-      login(this.form).then(res => {
-        console.log(res)
-        if(res.status==0) {
-          this.$message.success(res.msg)
-          this.$router.push('/hh/index')
-        }else{
-          this.$message.error(res.msg)
+      login(this.form).then((res) => {
+        console.log(res);
+        if (res.status == 0) {
+          this.$message.success(res.msg);
+          this.$router.push("/hh/index");
+        } else {
+          this.$message.error(res.msg);
         }
-      })
+      });
     },
   },
 };
@@ -149,16 +141,16 @@ export default {
     h3 {
       background: #f5f5f5;
       font-size: 18px;
-      border-bottom:1px solid #999;
-     padding: 10px 15px;
-     font-weight: 300;
+      border-bottom: 1px solid #999;
+      padding: 10px 15px;
+      font-weight: 300;
     }
-    .form{
+    .form {
       padding: 16px;
-      .el-button--primary{
+      .el-button--primary {
         font-size: 20px;
         font-weight: 600;
-        background: #5A98CF;
+        background: #5a98cf;
       }
     }
   }

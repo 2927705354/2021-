@@ -12,7 +12,7 @@ let qs=require('qs')
 // 登录接口
 export function login(params) {
   return request({
-    url: 'api/manage/user/login.do',
+    url: '/manage/user/login.do',
     method: 'post',
     data: qs.stringify(params),
 
@@ -22,7 +22,7 @@ export function login(params) {
 // 退出登录
 export function logout() {
   return request({
-    url: 'api/user/logout.do',
+    url: '/user/logout.do',
     method: 'post',
 
   })
@@ -31,7 +31,7 @@ export function logout() {
 // 获取商品管理数据
 export function list(num) {
   return request({
-    url: `api/manage/product/list.do?pageNum=${num}`,
+    url: `/manage/product/list.do?pageNum=${num}`,
     method: 'post',
 
   })
@@ -40,7 +40,7 @@ export function list(num) {
 // 搜索商品
 export function search(name, val) {
   return request({
-    url: `api/manage/product/search.do?listType=search&pageNum=1&${name}=${val}`,
+    url: `/manage/product/search.do?listType=search&pageNum=1&${name}=${val}`,
     method: 'get',
 
   })
@@ -49,7 +49,7 @@ export function search(name, val) {
 // 设置商品状态
 export function setsale(id, status) {
   return request({
-    url: `api/manage/product/set_sale_status.do?productId=${id}&status=${status}`,
+    url: `/manage/product/set_sale_status.do?productId=${id}&status=${status}`,
     method: 'get',
 
   })
@@ -58,7 +58,7 @@ export function setsale(id, status) {
 // 查看商品详情
 export function detail(id) {
   return request({
-    url: `api/manage/product/detail.do?productId=${id}`,
+    url: `/manage/product/detail.do?productId=${id}`,
     method: 'get',
 
   })
@@ -66,7 +66,7 @@ export function detail(id) {
 // 获取列表数据
 export function getlist(id) {
   return request({
-    url: `api/manage/category/get_category.do?categoryId=0`,
+    url: `/manage/category/get_category.do?categoryId=0`,
     method: 'get',
 
   })
@@ -74,8 +74,40 @@ export function getlist(id) {
 // 获取列表数据二
 export function getlist2(id) {
   return request({
-    url: `api/manage/category/get_category.do?categoryId=${id}`,
+    url: `/manage/category/get_category.do?categoryId=${id}`,
     method: 'get',
 
+  })
+}
+// url
+export function url(data) {
+  return request({
+    url: `/manage/product/upload.do`,
+    method: 'post',
+    data:data
+  })
+}
+
+// cate
+export function cate(data) {
+  return request({
+    url: '/manage/category/get_category.do?categoryId=0',
+    method: 'get',
+    data:data
+  })
+}
+
+// 修改品类名称
+export function setcate(id, name) {
+  return request({
+    url: `/manage/category/set_category_name.do?categoryId=${id}&categoryName=${name}`,
+    method: 'get',
+  })
+}
+// 查看其子类
+export function lookcate(id) {
+  return request({
+    url: `/manage/category/get_category.do?categoryId=${id}`,
+    method: 'get',
   })
 }

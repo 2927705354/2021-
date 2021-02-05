@@ -4,7 +4,7 @@ import axios from 'axios'
 // const config = require('../config/env.' + process.env.NODE_ENV)
 // console.log(config.baseUrl)
 const Server=axios.create({
-  baseURL:'',
+  baseURL:'api',
   // baseURL:config.baseUrl,
   timeout:5000
 })
@@ -18,6 +18,7 @@ Server.interceptors.request.use(config => {
   //   spinner: 'el-icon-loading',
   //   background: 'rgba(0, 0, 0, 0.7)',
   // });
+  // console.log(config)
   return config
 })
 

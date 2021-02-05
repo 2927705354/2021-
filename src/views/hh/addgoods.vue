@@ -48,23 +48,20 @@
           <img
             v-for="(item,index) in form.subImages.split(',') "
             :key="index"
-            style="width:60px;height:60px;margin-left:20px"
+            style="width:60px;height:60px;margin-left:20px;float:left"
             :src="form.imageHost+item"
             alt
           />
           <el-upload
-            class="upload-demo"
-            action="http://admintest.happymmall.com/manage/product/upload.do"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
+          style="float:left;"
+            action="/manage/product/upload.do"
+            list-type="picture-card"
+            show-file-list
+            :on-remove="remove"
+            :http-request="hand"
             :file-list="fileList"
           >
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
         <el-form-item label="商品详情">
@@ -76,7 +73,7 @@
 </template>
 
 <script>
-import { detail, getlist, getlist2 } from "@/until/api";
+import { detail, getlist, getlist2, url } from "@/until/api";
 export default {
   // 组件名称
   name: "Demo",
@@ -87,11 +84,16 @@ export default {
   // 组件状态值
   data() {
     return {
-      form: {},
+      form: {
+        name:'',
+        subtitle:'',
+        price:''
+      },
       value: "",
       value1: "",
       options1: [],
       options2: [],
+      fileList: [],
     };
   },
   /**
@@ -105,35 +107,54 @@ export default {
   mounted() {
     let id = this.$route.query.id;
     console.log(id);
-    detail(id).then((res) => {
-      console.log(res);
-      this.form = res.data;
-      // console.log(this.form.categoryId);
-      getlist().then((res) => {
+    if(id==null) {
+      console.log('00')
+      this.form={}
+    }else{
+      detail(id).then((res) => {
         console.log(res);
-        this.options1 = res.data;
-        this.value = res.data.filter((item) => {
-          return item.id == this.form.parentCategoryId;
-        })[0].name;
-        this.value1 = this.form.parentCategoryId;
-        getlist2(this.form.parentCategoryId).then((res) => {
-          // console.log(res);
-          this.options2 = res.data;
-          this.value1 = res.data.filter((item) => {
-            return item.id == this.form.categoryId;
+        this.form = res.data;
+        // console.log(this.form.categoryId);
+        getlist().then((res) => {
+          console.log(res);
+          this.options1 = res.data;
+          this.value = res.data.filter((item) => {
+            return item.id == this.form.parentCategoryId;
           })[0].name;
+          this.value1 = this.form.parentCategoryId;
+          getlist2(this.form.parentCategoryId).then((res) => {
+          // console.log(res);
+            this.options2 = res.data;
+            this.value1 = res.data.filter((item) => {
+              return item.id == this.form.categoryId;
+            })[0].name;
+          });
         });
       });
-    });
+    }
   },
   // 组件方法
   methods: {
-    handleChange(ee) {
-      console.log(ee);
+    hand(file) {
+      console.log(file)
+      let aa=new FormData()
+      aa.append('upload_file', file.file)
+      console.log(aa)
+      url(aa).then(res => {
+        console.log(res)
+        this.fileList.push(res.data.uri)
+        console.log(this.fileList)
+      })
     },
-    handleChange1(ee) {
-      console.log(ee);
+    remove(file, fileList) {
+      console.log(file, fileList);
     },
+    handleChange(e) {
+      console.log(e)
+    },
+    handleChange1(e) {
+      console.log(e)
+    }
   },
 };
 </script>
@@ -150,5 +171,8 @@ export default {
   color: #666666;
   font-size: 28px;
   font-weight: 400;
+}
+.el-upload-list{
+  display: none!important;
 }
 </style>

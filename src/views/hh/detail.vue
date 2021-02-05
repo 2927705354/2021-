@@ -38,7 +38,8 @@
           </div>
         </el-form-item>
         <el-form-item label="商品照片"><br>
-          <img v-for="(item,index) in form.subImages.split(',') " :key="index" style="width:60px;height:60px;margin-left:20px" :src="form.imageHost+item" alt="" />
+          <img v-for="(item,index) in form.subImages.split(',') " v-show="form.subImages.split(',').length>1" :key="index" style="width:60px;height:60px;margin-left:20px" :src="form.imageHost+item" alt="" />
+          <img v-show="form.subImages.split(',').length<=1" style="width:60px;height:60px;margin-left:20px" :src="form.imageHost+form.subImages" alt="" />
         </el-form-item>
         <el-form-item label="商品详情">
           <p v-html="form.detail"></p>
@@ -76,7 +77,6 @@ export default {
   // 侦听器
   watch: {},
   mounted() {
-    this.get();
     let id = this.$route.params.id;
     // console.log(id);
     detail(id).then((res) => {
@@ -89,7 +89,7 @@ export default {
         this.value = res.data.filter((item) => {
           return item.id == this.form.parentCategoryId;
         })[0].name;
-        this.value1 = this.form.parentCategoryId;
+        // this.value1 = this.form.parentCategoryId;
         getlist2(this.form.parentCategoryId).then((res) => {
           // console.log(res);
           this.options2=res.data

@@ -1,9 +1,40 @@
 <template>
 <div>
+  <div class="top">
+    <h3>品类管理</h3>
+     <el-button type="primary" icon="el-icon-plus" @click="$router.push('/hh/addgoods')">添加品类</el-button>
+  </div>
+  <p style="font-size:16px;margin-top:10px;line-height:20px">当前商品分类ID:&nbsp;&nbsp;{{ text }}</p>
+   <el-table
+    :data="tableData"
+    border
+    style="width: 100%;margin-top:10px">
+    <el-table-column
+      prop="id"
+      label="品类ID"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="品类名称"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      label="操作"
+      >
+      <template slot-scope="scope">
+        <div>
+       <el-button type="primary" size="mini" @click="upda(scope.row.id,scope.row.name)">修改名称</el-button>
+       <el-button v-show="flag==true" type="primary" size="mini" @click="look(scope.row.id)">查看其子品类</el-button>
+        </div>
+      </template>
+    </el-table-column>
+  </el-table>
 </div>
 </template>
 
 <script>
+import {cate, setcate, lookcate} from '@/until/api'
 export default {
   // 组件名称
   name: 'Demo',
@@ -13,7 +44,12 @@ export default {
   props: {},
   // 组件状态值
   data () {
-    return {}
+    return {
+      text:0,
+      tableData:[],
+      flag:true,
+      id:''
+    }
   },
   /**
   * 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
@@ -22,60 +58,64 @@ export default {
   // 计算属性
   computed: {},
   // 侦听器
-  watch: {},
+  watch: {
+    $route:{
+      handler(ee) {
+        console.log(ee)
+        if(this.$route.fullPath.includes('?')) {
+          this.flag=false
+        }else{
+          this.flag=true
+        }
+        console.log(this.flag)
+      },
+      immediate:true
+    }
+  },
   mounted () {
-  },
-  // 以下是生命周期钩子   注：没用到的钩子请自行删除
-  /**
-  * 在实例初始化之后，组件属性计算之前，如data属性等
-  */
-  beforeCreate () {
-  },
-  /**
-  * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
-  */
-  created () {
-  },
-  /**
-  * 在挂载开始之前被调用：相关的 render 函数首次被调用。
-  */
-  beforeMount () {
-  },
-  /**
-  * el 被新创建的 vm.$ el 替换，并挂载到实例上去之后调用该钩子。
-  * 如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$ el 也在文档内。
-  */
-  beforeUpdate () {
-  },
-  /**
-  * 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
-  * 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
-  */
-  updated () {
-  },
-  /**
-  * keep-alive 组件激活时调用。 仅针对keep-alive 组件有效
-  */
-  activated () {
-  },
-  /**
-  * keep-alive 组件停用时调用。 仅针对keep-alive 组件有效
-  */
-  deactivated () {
-  },
-  /**
-  * 实例销毁之前调用。在这一步，实例仍然完全可用。
-  */
-  beforeDestroy () {
-  },
-  /**
-  * Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，
-  * 所有的事件监听器会被移除，所有的子实例也会被销毁。
-  */
-  destroyed () {
+    this.get()
   },
   // 组件方法
-  methods: {}
+  methods: {
+    get() {
+      cate().then(res => {
+        console.log(res)
+        this.tableData=res.data
+      })
+    },
+    upda(ee, aa) {
+      let bb=  prompt('请输入新的品类名称', aa)
+      console.log(bb)
+      if(bb==null||bb=='') {
+        alert('请输入正确的品类名称')
+        return
+      }
+      setcate(ee, bb).then(res => {
+        console.log(res)
+        alert('更新品类名字成功')
+      })
+      if(this.flag==false) {
+        console.log('12')
+        lookcate(this.id).then(res => {
+          console.log(res)
+          this.tableData=res.data
+        })
+      }else{
+        console.log('334')
+        this.get()
+      }
+
+    },
+    look(ee) {
+      console.log(ee)
+      this.id=ee
+      this.$router.push(`/hh/cate?${ee}`)
+      lookcate(ee).then(res => {
+        console.log(res)
+        this.tableData=res.data
+      })
+    }
+  }
 }
 </script>
 
@@ -83,6 +123,22 @@ export default {
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
-<style   scoped>
-
+<style lang="scss"  scoped>
+.top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  height: 60px;
+  h3 {
+    font-size: 26px;
+    color: #666666;
+  }
+  .el-button {
+    height: 36px;
+    font-size: 14px;
+    font-weight: 400;
+    background: #337ab7;
+  }
+}
 </style>
